@@ -18,7 +18,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                dir("test") {                
+                dir("test") { 
+                    sh 'npm run precy:run'              
                     sh 'cypress run'
                 }
             }
