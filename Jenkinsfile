@@ -11,16 +11,15 @@ pipeline {
             steps {
                 dir("test") {
                     sh "cypress verify"
-                    git branch: "mochawesome-reporter", credentialsId:  "github", url:"https://github.com/przemuh/cypress-example-kitchensink/"
+                    git branch: "master", credentialsId:  "github", url:"https://github.com/cypress-io/cypress-tutorial-build-todo-starter/blob"
                     sh 'npm install'
-                     sh 'nohup npm run start:ci &'
+                     sh 'npm run dev'
                 }
             }
         }
         stage('Test') {
             steps {
                 dir("test") { 
-                    sh 'npm run precy:run'              
                     sh 'cypress run'
                 }
             }
@@ -28,9 +27,7 @@ pipeline {
                 always {
                     dir("test") {
                         sh "ls"
-                        sh "npm run report"
-                        publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html/', reportFiles: 'mochawesome-bundle.html', reportName: 'HTML Report', reportTitles: 'Test Report'])
-                        sh 'pkill -f http-server'
+                        // publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html/', reportFiles: 'mochawesome-bundle.html', reportName: 'HTML Report', reportTitles: 'Test Report'])
                     }
                 }
                 failure {
