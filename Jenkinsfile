@@ -11,7 +11,7 @@ pipeline {
             steps {
                 dir("test") {
                     sh "cypress verify"
-                    git branch: "master", credentialsId:  "github", url:"https://github.com/cypress-io/cypress-tutorial-build-todo-starter/blob"
+                    git branch: "master", credentialsId:  "github", url:"https://github.com/cypress-io/cypress-tutorial-build-todo-starter"
                     sh 'npm install'
                      sh 'npm run dev'
                 }
