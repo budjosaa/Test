@@ -9,11 +9,20 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "cypress verify"
-                sh script: 'mkdir -p build/reports'
-                sh script: 'touch build/reports/*'
-
-                publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'build/reports', reportFiles: 'report.html', reportName: 'HTML Report', reportTitles: 'Test Report'])
+                dir("test") {
+                    sh "cypress verify"
+                    git branch: "mochawesome-reporter", credentialsId:  "github", url:"https://github.com/przemuh/cypress-example-kitchensink/"
+                    sh 'npm install'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                dir("test") {                
+                    sh 'cypress run'
+                    sh "npm run report"
+                    publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html', reportFiles: 'mochawesome-bundle.html', reportName: 'HTML Report', reportTitles: 'Test Report'])
+                }
             }
         }
     }
