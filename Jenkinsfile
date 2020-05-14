@@ -24,8 +24,10 @@ pipeline {
             }
             post {
                 always {
-                    sh "npm run report"
-                    publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html', reportFiles: 'mochawesome-bundle.html', reportName: 'HTML Report', reportTitles: 'Test Report'])
+                    dir("test") {
+                        sh "npm run report"
+                        publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html', reportFiles: 'mochawesome-bundle.html', reportName: 'HTML Report', reportTitles: 'Test Report'])
+                    }
                 }
             }
         }
