@@ -31,6 +31,12 @@ pipeline {
                         publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html/', reportFiles: 'mochawesome-bundle.html', reportName: 'HTML Report', reportTitles: 'Test Report'])
                     }
                 }
+                unsuccessful {
+                    sh "echo FAIL"
+                }
+                success {
+                    sh "echo SUCCESS"
+                }
             }
         }
     }
