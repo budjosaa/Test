@@ -20,6 +20,10 @@ pipeline {
             steps {
                 dir("test") {                
                     sh 'cypress run'
+                }
+            }
+            post {
+                always {
                     sh "npm run report"
                     publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html', reportFiles: 'mochawesome-bundle.html', reportName: 'HTML Report', reportTitles: 'Test Report'])
                 }
