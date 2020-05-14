@@ -13,6 +13,7 @@ pipeline {
                     sh "cypress verify"
                     git branch: "mochawesome-reporter", credentialsId:  "github", url:"https://github.com/przemuh/cypress-example-kitchensink/"
                     sh 'npm install'
+                     sh 'nohup npm run start:ci &'
                 }
             }
         }
@@ -29,9 +30,10 @@ pipeline {
                         sh "ls"
                         sh "npm run report"
                         publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html/', reportFiles: 'mochawesome-bundle.html', reportName: 'HTML Report', reportTitles: 'Test Report'])
+                        sh 'pkill -f http-server'
                     }
                 }
-                unsuccessful {
+                failure {
                     sh "echo FAIL"
                 }
                 success {
