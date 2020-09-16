@@ -2,7 +2,7 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile'
-            args '-u 0:0 --network=host'
+            args '-u 0:0'
         }
     }
         
