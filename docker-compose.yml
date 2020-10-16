@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   testservice:
-    image: nginx
+    image: budjosa/test:latest
     deploy:
       replicas: 2
     ports:
