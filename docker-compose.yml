@@ -1,0 +1,8 @@
+version: '3.0'
+services:
+  testservice:
+    image: nginx
+    deploy:
+      replicas: 2
+    ports:
+    - "8080:8080"
