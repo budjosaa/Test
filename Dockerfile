@@ -1,4 +1,4 @@
-FROM  cypress/base:10
-RUN npm install -g cypress@4.5.0 --unsafe-perm
-RUN npm install -g wait-on@5.0.0
-RUN cypress -v
+FROM  nginx
+RUN  rm /usr/share/nginx/html/index.html
+COPY ./html/index.html /usr/share/nginx/html/
+

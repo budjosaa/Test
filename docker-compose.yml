@@ -1,8 +1,8 @@
 version: '3.0'
 services:
   testservice:
-    image: budjosa/test:latest
+    image: 192.168.56.101:443/nginx-test:latest
     deploy:
-      replicas: 2
+      replicas: 
     ports:
     - "8080:8080"
