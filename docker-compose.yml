@@ -5,4 +5,4 @@ services:
     deploy:
       replicas: 1 
     ports:
-    - "80:80"
+    - "4222:80"
